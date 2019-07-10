@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import Post,Tags,Comment
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,TagForm,CommentForm
+from .forms import PostForm,TagForm,CommentForm,SignupForm
 from django.shortcuts import redirect
 from django.db.models import F,Count
 from django.contrib.auth.decorators import login_required
@@ -75,14 +75,20 @@ def add_comment_to_post(request, pk):
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
 
 def signup(request):
-    if request.method == "POST":
-        if request.POST["password1"] == request.POST["password2"]:
-            user = User.objects.create_user(
-                username=request.POST["username"],password=request.POST["password1"])
-            auth.login(request,user)
+    if request.method == 'POST':
+        signup_form = SignupForm(request.POST)
+        # 유효성 검증에 통과한 경우 (username의 중복과 password1, 2의 일치 여부)
+        if signup_form.is_valid():
+            # SignupForm의 인스턴스 메서드인 signup() 실행, 유저 생성
+            signup_form.signup()
             return redirect('post_list')
-        return render(request, 'registration/signup.html')
-    return render(request, 'registration/signup.html')
+    else:
+        signup_form = SignupForm()
+
+    context = {
+        'signup_form': signup_form,
+    }
+    return render(request, 'registration/signup.html', context)
     
 def test(request):
     if request.method == "POST":

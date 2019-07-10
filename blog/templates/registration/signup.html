@@ -1,18 +1,28 @@
 {% extends "blog/base.html" %}
 
+{% block title %}Signup{% endblock %}
 {% block content %}
-    <div class="container">
-        <h1>sign up!</h1>
+<div class="signup">
+	<form action="" method="post" autocomplete="off">
+		{% csrf_token %}
+		{% for field in signup_form %}
+			<div class="form-group{% if field.errors %} has-error{% endif %}">
+				{{ field.label_tag }}
+				{{ field }}
+				{% if field.errors %}
+					{% for error in field.errors %}
+					<span class="help-block">{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+			</div>
+		{% endfor %}
 
-        <form method="POST" action="{%url 'signup' %}" autocomplete="off">
-        {% csrf_token %}
-            Username : <input name="username" type="text">
-            <br>
-            Password : <input name="password1" type="password">
-            <br>
-            Confirm Password : <input name="password2" type="password">
-            <br>
-            <input type="submit" class="btn btn-primary" value="sign up">
-        </form>
-    </div>
+		{% if signup_form.non_field_errors %}
+			{% for error in login_form.non_field_errors %}
+			<p class="text-danger"><b>{{ error }}</b></p>
+			{% endfor %}
+		{% endif %}
+		<button class="btn btn-primary btn-block">회원가입</button>
+	</form>
+</div>
 {% endblock %}
