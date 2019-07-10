@@ -409,7 +409,7 @@
         
             dots = [];
         }
-        
+
         // 그려지고 있는 선의 총거리 정보와 
         // 선 그리가 종료됐을 때 선의 정보를 표시하는 커스텀 오버레이를 삭제하는 함수입니다
         function deleteDistnce () {
@@ -419,8 +419,8 @@
             }
         }
         
-        $(function() {
-            var availableUniv =/*서울*/ ["가톨릭대학교 성신교정","가톨릭대학교 성의교정","건국대학교 서울캠퍼스","경기대학교 서울캠퍼스","경희대학교 서울캠퍼스","고려대학교 서울캠퍼스","광운대학교","국민대학교","동국대학교 서울캠퍼스","명지대학교 인문캠퍼스","삼육대학교","상명대학교 서울캠퍼스","서강대학교","서경대학교","서울대학교 관악캠퍼스","서울대학교 연건캠퍼스","서울과학기술대학교","성균관대학교 인문사회캠퍼스","세종대학교","숭실대학교","연세대학교 신촌캠퍼스","중앙대학교 서울캠퍼스","한국외국어대학교 서울캠퍼스","한성대학교","한양대학교 서울캠퍼스","홍익대학교 서울캠퍼스",
+        $(function() {           
+            var availableUniv = /*서울*/ ["가톨릭대학교 성신교정","가톨릭대학교 성의교정","건국대학교 서울캠퍼스","경기대학교 서울캠퍼스","경희대학교 서울캠퍼스","고려대학교 서울캠퍼스","광운대학교","국민대학교","동국대학교 서울캠퍼스","명지대학교 인문캠퍼스","삼육대학교","상명대학교 서울캠퍼스","서강대학교","서경대학교","서울대학교 관악캠퍼스","서울대학교 연건캠퍼스","서울과학기술대학교","성균관대학교 인문사회캠퍼스","세종대학교","숭실대학교","연세대학교 신촌캠퍼스","중앙대학교 서울캠퍼스","한국외국어대학교 서울캠퍼스","한성대학교","한양대학교 서울캠퍼스","홍익대학교 서울캠퍼스",
                                 /*부산*/  "경성대학교","고신대학교","동명대학교","동서대학교","동아대학교 승학캠퍼스","동아대학교 부민캠퍼스","동아대학교 구덕캠퍼스","동의대학교 가야캠퍼스","동의대학교 양정캠퍼스","부경대학교 대연캠퍼스","부경대학교 용당캠퍼스","부산대학교 부산캠퍼스","부산대학교 아미캠퍼스","부산외국어대학교","신라대학교","영산대학교 해운대캠퍼스","인제대학교 부산캠퍼스","한국해양대학교",
                                 /*대구*/  "경북대학교 대구캠퍼스","계명대학교 성서캠퍼스","대구교육대학교",
                                 /*인천*/  "가천대학교 메디컬캠퍼스","안양대학교 강화캠퍼스","연세대학교 국제캠퍼스","인천대학교","인하대학교","청운대학교 인천캠퍼스",
@@ -428,8 +428,10 @@
                                 /*대전*/  "건양대학교 메디컬캠퍼스","대전대학교","목원대학교","배재대학교","우송대학교","을지대학교 대전캠퍼스","충남대학교 대덕캠퍼스","충남대학교 보운캠퍼스","한남대학교 오정동캠퍼스","한남대학교 글로벌캠퍼스","한남대학교 대덕밸리캠퍼스","한밭대학교",
                                 /*울산*/  "울산대학교",
                                 /*세종*/  "고려대학교 세종캠퍼스","홍익대학교 세종캠퍼스",
-                                /*경기*/  "가천대학교 글로벌캠퍼스","가톨릭대학교 성심교정","강남대학교","경기대학교 수원캠퍼스","경동대학교 양주캠퍼스","경희대학교 국제캠퍼스","단국대학교 죽전캠퍼스","대진대학교","동국대학교 바이오메디캠퍼스","명지대학교","성균관대학교 자연과학캠퍼스","수원대학교","신경대학교","신한대학교","아주대학교","안양대학교 안양캠퍼스","예원예술대학교 양주캠퍼스","용인대학교","을지대학교 성남캠퍼스","중부대학교 고양캠퍼스","중앙대학교 안성캠퍼스","차의과학대학교","평택대학교","한경대학교","한국교통대학교 의왕캠퍼스","한국산업기술대학교","한국외국어대학교 글로벌캠퍼스","한국항공대학교","한세대학교","한신대학교","한양대학교 에리카","협성대학교"
-                            
+                                /*경기*/  "가천대학교 글로벌캠퍼스","가톨릭대학교 성심교정","강남대학교","경기대학교 수원캠퍼스","경동대학교 양주캠퍼스","경희대학교 국제캠퍼스","단국대학교 죽전캠퍼스","대진대학교","동국대학교 바이오메디캠퍼스","명지대학교","성균관대학교 자연과학캠퍼스","수원대학교","신경대학교","신한대학교","아주대학교","안양대학교 안양캠퍼스","예원예술대학교 양주캠퍼스","용인대학교","을지대학교 성남캠퍼스","중부대학교 고양캠퍼스","중앙대학교 안성캠퍼스","차의과학대학교","평택대학교","한경대학교","한국교통대학교 의왕캠퍼스","한국산업기술대학교","한국외국어대학교 글로벌캠퍼스","한국항공대학교","한세대학교","한신대학교","한양대학교 에리카","협성대학교",
+                                /*강원*/  "가톨릭관동대학교","강릉원주대학교 강릉캠퍼스","강원대학교 춘천캠퍼스","강원대학교 삼척캠퍼스","강원대학교 도계캠퍼스","경동대학교 글로벌캠퍼스","경동대학교 메디컬캠퍼스","상지대학교","연세대학교 매지캠퍼스","연세대학교 일산캠퍼스","한라대학교","한림대학교",
+                                /*충북*/  "건국대학교 글로벌캠퍼스","극동대학교","꽃동네대학교","서원대학교","세명대학교","순복음총회신학교","우석대학교 진천캠퍼스","중원대학교","청주대학교","유원대학교","청주교육대학교","충북대학교","한국교원대학교","한국교통대학교 충주캠퍼스","한국교통대학교 증평캠퍼스","공군사관학교",
+                                /*충남*/  "경찰대학","공주교육대학교","공주대학교 신관캠퍼스","고웆대학교 천안캠퍼스","공주대학교 예산컴퍼스","국방대학교","한국전통문화대학교","건양대학교 창의웅합캠퍼스","고신대학교 천안캠퍼스","금강대학교","나사렛대학교","남서울대학교","단국대학교 천안캠퍼스","백석대학교","상명대학교 천안캠퍼스","선문대학교","세한대학교 당진캠퍼스","순천향대학교","유원대학교 아산캠퍼스","중부대학교","청운대학교 홍성캠퍼스","한국기술교육대학교","한서대학교 서산캠퍼스","한서대학교 태안캠퍼스","호서대학교 아산캠퍼스","호서대학교 천안캠퍼스","호서대학교 당진 산업화학융합캠퍼스","백석문화대학교","신성대학교","아주자동차대학교","연암대학교","충남도립대학교"
                             
                             ];
             $("#univ").autocomplete({
@@ -447,16 +449,131 @@
             {
                 var moveMap;
                 var moveMapOption;
+                var moveLatLon;
                 var getText = document.getElementById('univ').value;
                 
-                if (getText ==='가톨릭대학교 성신교정')
-                    var moveLatLon = new kakao.maps.LatLng(37.5859218,127.0043275); 
-                else if (getText ==='가톨릭대학교 성의교정')
-                    var moveLatLon = new kakao.maps.LatLng(37.4996227,127.0060653); 
-                else if (getText ==='건국대학교 서울캠퍼스')
-                    var moveLatLon = new kakao.maps.LatLng(37.5424738,127.0729708); 
-                else if(getText ==='한성대학교')
-                    var moveLatLon = new kakao.maps.LatLng(37.581759,127.010337);
+    /*서울*/    if      (getText ==='가톨릭대학교 성신교정') moveLatLon= new kakao.maps.LatLng(37.5859218,127.0043275); 
+                else if(getText ==='가톨릭대학교 성의교정') moveLatLon = new kakao.maps.LatLng(37.4996227,127.0060653); 
+                else if(getText ==='건국대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng(37.5424738,127.0729708); 
+                else if(getText ==='경기대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng(); 
+                else if(getText ==='경희대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='고려대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='광운대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='국민대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동국대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='명지대학교 인문캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='삼육대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='상명대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='서강대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='서경대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='서울대학교 관악캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='서울대학교 연건캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='서울과학기술대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='성균관대학교 인문사회캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='세종대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='숭실대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='연세대학교 신촌캠퍼스') moveLatLon = new kakao.maps.LatLng();                
+                else if(getText ==='중앙대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한국외국어대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한성대학교') moveLatLon = new kakao.maps.LatLng(37.581759,127.010337)
+                else if(getText ==='한양대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='홍익대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
+            
+    /*부산*/    else if(getText ==='경성대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='고신대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동명대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동서대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동아대학교 승학캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동아대학교 부민캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동아대학교 구덕캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동의대학교 가야캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동의대학교 양정캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='부경대학교 대연캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='부경대학교 용당캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='부산대학교 부산캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='부산대학교 아미캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='부산외국어대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='신라대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='영산대학교 해운대캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='인제대학교 부산캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한국해양대학교') moveLatLon = new kakao.maps.LatLng();
+
+    /*대구*/    else if(getText ==='경북대학교 대구캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='계명대학교 성서캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='대구교육대학교') moveLatLon = new kakao.maps.LatLng();
+
+    /*인천*/    else if(getText ==='가천대학교 메디컬캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='안양대학교 강화캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='연세대학교 국제캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='인천대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='인하대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='청운대학교 인천캠퍼스') moveLatLon = new kakao.maps.LatLng();
+
+    /*광주*/    else if(getText ==='광주대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='송원대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='전남대학교 광주캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='조선대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='호남대학교') moveLatLon = new kakao.maps.LatLng();
+
+    /*대전*/    else if(getText ==='건양대학교 메디컬캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='대전대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='목원대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='배재대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='우송대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='을지대학교 대전캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='충남대학교 대덕캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='충남대학교 보운캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한남대학교 오정동캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한남대학교 글로벌캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한남대학교 대덕밸리캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한밭대학교') moveLatLon = new kakao.maps.LatLng();
+
+    /*울산*/    else if(getText ==='울산대학교') moveLatLon = new kakao.maps.LatLng();
+    
+    /*세종*/    else if(getText ==='고려대학교 세종캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='홍익대학교 세종캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                
+    /*경기*/    else if(getText ==='가천대학교 글로벌캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='가톨릭대학교 성심교정') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='강남대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='경기대학교 수원캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='경동대학교 양주캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='경희대학교 국제캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='단국대학교 죽전캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='대진대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='동국대학교 바이오메디캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='명지대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='성균관대학교 자연과학캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='수원대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='신경대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='신한대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='아주대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='안양대학교 안양캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='예원예술대학교 양주캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='용인대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='을지대학교 성남캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='중부대학교 고양캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='중앙대학교 안성캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='차의과학대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='평택대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한경대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한국교통대학교 의왕캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한국산업기술대학교') moveLatLon = n ew kakao.maps.LatLng();
+                else if(getText ==='한국외국어대학교 글로벌캠퍼스') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한국항공대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한세대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한신대학교') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='한양대학교 에리카') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='협성대학교') moveLatLon = new kakao.maps.LatLng();
+
+                else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
+                else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
         
                 // 지도 중심을 부드럽게 이동시킵니다
                 // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
