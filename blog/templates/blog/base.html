@@ -12,6 +12,7 @@
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c32c1763e65921610b0b14021a17138f&libraries=services"></script>
         <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/kakao.js' %}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         
     </head>
     <body style="margin: 0">
@@ -28,13 +29,13 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
-                            <li><a href="/info"><span class="glyphicon glyphicon-user"></span> 내 정보 {{ user.username }}</a></li>
-                            <li><a href="{% url 'email_to_admin' %}">email_to_admin</a></li>
-		                    <li><a href="{% url 'logout' %}">Log out</a></li>
-                            <li><a href="{% url 'post_new' %}"><span class="glyphicon glyphicon-plus"></span></a></li>
+                            <li><a href="/info"><span class="glyphicon glyphicon-user"></span> 내 정보 - {{ user.username }}</a></li>
+                            <li><a href="{% url 'email_to_admin' %}"><span class="glyphicon glyphicon-envelope"></span> 문의사항</a></li>
+		                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> 로그아웃</a></li>
+                            <li><a href="{% url 'post_new' %}"><span class="glyphicon glyphicon-plus"></span> 글쓰기</a></li>
                         {% else %}
-                            <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span> 로그인</a></li>
-                		    <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-log-in"></span> 회원가입</a></li>
+                            <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
+                		    <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
                         {% endif %}
                     </ul>
                 </div>

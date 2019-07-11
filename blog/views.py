@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import Post,Tags,Comment
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,TagForm,CommentForm,SignupForm
+from .forms import PostForm,TagForm,CommentForm,CustomUserCreationForm
 from django.shortcuts import redirect
 from django.db.models import F,Count
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.urls import reverse_lazy
+from django.views import generic
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -71,22 +73,13 @@ def add_comment_to_post(request, pk):
         form = CommentForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
 
-def signup(request):
-    if request.method == 'POST':
-        signup_form = SignupForm(request.POST)
-        # 유효성 검증에 통과한 경우 (username의 중복과 password1, 2의 일치 여부)
-        if signup_form.is_valid():
-            # SignupForm의 인스턴스 메서드인 signup() 실행, 유저 생성
-            signup_form.signup()
-            return redirect('post_list')
-    else:
-        signup_form = SignupForm()
+ 
+class SignUp(generic.CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('signup_success')
+    template_name = 'registration/signup.html'
 
-    context = {
-        'signup_form': signup_form,
-    }
-    return render(request, 'registration/signup.html', context)
-    
+
 def test(request):
     if request.method == "POST":
         form = TagForm(request.POST)
