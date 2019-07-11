@@ -14,7 +14,7 @@
         <script type="text/javascript" src="{% static 'js/kakao.js' %}"></script>
         
     </head>
-    <body>
+    <body style="margin: 0">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -29,6 +29,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                             <li><a href="/info"><span class="glyphicon glyphicon-user"></span> 내 정보 {{ user.username }}</a></li>
+                            <li><a href="{% url 'email_to_admin' %}">email_to_admin</a></li>
 		                    <li><a href="{% url 'logout' %}">Log out</a></li>
                             <li><a href="{% url 'post_new' %}"><span class="glyphicon glyphicon-plus"></span></a></li>
                         {% else %}

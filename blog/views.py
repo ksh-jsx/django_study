@@ -100,3 +100,7 @@ def test(request):
     test = Tags.objects.all().values('tag').annotate(total=Count('tag')).order_by('-total')[:5]
     return render(request, 'blog/test.html', {'test': test,'form' : form})
 
+@login_required
+def email_to_admin(request):
+    userId = request.user
+    return render(request, 'admin/email.html', {'userId': userId})
