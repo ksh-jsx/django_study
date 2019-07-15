@@ -1,7 +1,7 @@
-{% extends 'blog/test_base.html' %}
+{% extends 'baangbang/base.html' %}
 
 {% block content %}
-    <div class="map_wrap">
+<div class="map_wrap">
         <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
         <ul id="category">
             <li id="BK9" data-order="0"> 
@@ -29,13 +29,19 @@
                 편의점
             </li>      
         </ul>
-        <div id="search_wrap" style="height:30px;float:left;width:100%;">
+        <script>
+        </script>
+        <div class="search_wrap" >
             <label for="univ">학교: </label>
-            <input id="univ">
+            <input id="univ" value="{{info}}">
             <button id="univ_search">검색</button>
         </div>
     </div>
     <script>
+        window.onload = function()
+	{
+        document.getElementById("univ_search").click();
+    }
         var drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
         var moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
         var clickLine // 마우스로 클릭한 좌표로 그려질 선 객체입니다
@@ -50,12 +56,44 @@
         
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
-                center: new kakao.maps.LatLng(37.625046, 127.076600), // 지도의 중심좌표
-                level: 1 // 지도의 확대 레벨
+                center: new kakao.maps.LatLng(37.6315409,127.0763521), // 지도의 중심좌표
+                level: 4 // 지도의 확대 레벨
             };  
         
         // 지도를 생성합니다    
         var map = new kakao.maps.Map(mapContainer, mapOption); 
+        // 클러스터 생성
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+            minLevel: 1, // 클러스터 할 최소 지도 레벨
+            disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+        });
+
+        $.get("../../static/js/data.json", function(data) {
+            // 데이터에서 좌표 값을 가지고 마커를 표시합니다
+            // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
+            var markers = $(data.positions).map(function(i, position) {
+                return new kakao.maps.Marker({
+                    position : new kakao.maps.LatLng(position.lat, position.lng)
+                });
+            });
+
+            // 클러스터러에 마커들을 추가합니다
+            clusterer.addMarkers(markers);
+        });
+
+        // 마커 클러스터러에 클릭이벤트를 등록합니다
+        // 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
+        // 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
+        kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+
+            // 현재 지도 레벨에서 1레벨 확대한 레벨
+            var level = map.getLevel()-1;
+
+            // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+            map.setLevel(level, {anchor: cluster.getCenter()});
+        });
         
         // 장소 검색 객체를 생성합니다
         var ps = new kakao.maps.services.Places(map); 
@@ -235,7 +273,7 @@
         } 
         
         var marker = new kakao.maps.Marker({ 
-            position: map.getCenter()
+            
         });
         
         marker.setMap(map);
@@ -418,6 +456,7 @@
                 distanceOverlay = null;
             }
         }
+
         
         $(function() {           
             var availableUniv = /*서울*/ ["가톨릭대학교 성신교정","가톨릭대학교 성의교정","건국대학교 서울캠퍼스","경기대학교 서울캠퍼스","경희대학교 서울캠퍼스","고려대학교 서울캠퍼스","광운대학교","국민대학교","동국대학교 서울캠퍼스","명지대학교 인문캠퍼스","삼육대학교","상명대학교 서울캠퍼스","서강대학교","서경대학교","서울대학교 관악캠퍼스","서울대학교 연건캠퍼스","서울과학기술대학교","성균관대학교 인문사회캠퍼스","세종대학교","숭실대학교","연세대학교 신촌캠퍼스","중앙대학교 서울캠퍼스","한국외국어대학교 서울캠퍼스","한성대학교","한양대학교 서울캠퍼스","홍익대학교 서울캠퍼스",
@@ -455,7 +494,8 @@
     /*서울*/    if      (getText ==='가톨릭대학교 성신교정') moveLatLon= new kakao.maps.LatLng(37.5859218,127.0043275); 
                 else if(getText ==='가톨릭대학교 성의교정') moveLatLon = new kakao.maps.LatLng(37.4996227,127.0060653); 
                 else if(getText ==='건국대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng(37.5424738,127.0729708); 
-                else if(getText ==='경기대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng(); 
+                else if(getText ==='서울과학기술대학교') moveLatLon = new kakao.maps.LatLng(37.6315409,127.0763521);
+                /*else if(getText ==='경기대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng(); 
                 else if(getText ==='경희대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
                 else if(getText ==='고려대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
                 else if(getText ==='광운대학교') moveLatLon = new kakao.maps.LatLng();
@@ -478,94 +518,8 @@
                 else if(getText ==='한성대학교') moveLatLon = new kakao.maps.LatLng(37.581759,127.010337)
                 else if(getText ==='한양대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
                 else if(getText ==='홍익대학교 서울캠퍼스') moveLatLon = new kakao.maps.LatLng();
-            
-    /*부산*/    else if(getText ==='경성대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='고신대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='동명대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='동서대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='동아대학교 승학캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='동아대학교 부민캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='동아대학교 구덕캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='동의대학교 가야캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='동의대학교 양정캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='부경대학교 대연캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='부경대학교 용당캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='부산대학교 부산캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='부산대학교 아미캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='부산외국어대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='신라대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='영산대학교 해운대캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='인제대학교 부산캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한국해양대학교') moveLatLon = new kakao.maps.LatLng();
-
-    /*대구*/    else if(getText ==='경북대학교 대구캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='계명대학교 성서캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='대구교육대학교') moveLatLon = new kakao.maps.LatLng();
-
-    /*인천*/    else if(getText ==='가천대학교 메디컬캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='안양대학교 강화캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='연세대학교 국제캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='인천대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='인하대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='청운대학교 인천캠퍼스') moveLatLon = new kakao.maps.LatLng();
-
-    /*광주*/    else if(getText ==='광주대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='송원대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='전남대학교 광주캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='조선대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='호남대학교') moveLatLon = new kakao.maps.LatLng();
-
-    /*대전*/    else if(getText ==='건양대학교 메디컬캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='대전대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='목원대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='배재대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='우송대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='을지대학교 대전캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='충남대학교 대덕캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='충남대학교 보운캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한남대학교 오정동캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한남대학교 글로벌캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한남대학교 대덕밸리캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한밭대학교') moveLatLon = new kakao.maps.LatLng();
-
-    /*울산*/    else if(getText ==='울산대학교') moveLatLon = new kakao.maps.LatLng();
-    
-    /*세종*/    else if(getText ==='고려대학교 세종캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='홍익대학교 세종캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                
-    /*경기*/    else if(getText ==='가천대학교 글로벌캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='가톨릭대학교 성심교정') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='강남대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='경기대학교 수원캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='경동대학교 양주캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='경희대학교 국제캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='단국대학교 죽전캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='대진대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='동국대학교 바이오메디캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='명지대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='성균관대학교 자연과학캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='수원대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='신경대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='신한대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='아주대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='안양대학교 안양캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='예원예술대학교 양주캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='용인대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='을지대학교 성남캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='중부대학교 고양캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='중앙대학교 안성캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='차의과학대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='평택대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한경대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한국교통대학교 의왕캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한국산업기술대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한국외국어대학교 글로벌캠퍼스') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한국항공대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한세대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한신대학교') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='한양대학교 에리카') moveLatLon = new kakao.maps.LatLng();
-                else if(getText ==='협성대학교') moveLatLon = new kakao.maps.LatLng();
-
+            */
+                /*
                 else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
                 else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
                 else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
@@ -574,33 +528,14 @@
                 else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
                 else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
                 else if(getText ==='') moveLatLon = new kakao.maps.LatLng();
+                */
         
                 // 지도 중심을 부드럽게 이동시킵니다
                 // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
                 map.panTo(moveLatLon);   
-                map.setLevel(3); 
+                map.setLevel(4); 
             });
         });
     </script>
-    <div id="tag_wrap" style="width:1024px; margin: 0 auto;padding-top:20px;">
-        <div style="width:100%;margin: 0 auto;text-align:center;margin-bottom:20px;">입주자가 위치를 파악할 수 있을만한 장소를 입력해주세요</div>
-        <form method="POST" class="post-form" autocomplete="off">{% csrf_token %}
-            <div id="bar_wrap" style="width:400px;height:30px; margin: 0 auto;margin-bottom:20px;">                    
-                {{ form.tag.errors }}
-                {{ form.tag }}
-            </div>
-            
-            <div style="width:100%;margin:0 auto;height:20px;font-size:10px;color:#bdbdbd;text-align:center;">다른 사용자가 추가한 위치들</div> 
-            <div id="tags_wrap" style="width:500px;margin:0 auto;height:50px;padding-top:20px;">
-                {% for tags in test %}
-                    <div style="width:20%;margin: 0 auto;float:left">
-                        <a href="#" >{{ tags.tag }}</a>
-                    </div>
-                {% endfor %}
-            </div>
-            <div id="btn_wrap" style="width:100px; margin: 0 auto;">
-                <button type="submit" class="save btn btn-default" style="width:100%;height:50px;">Save</button>
-            </div>  
-        </form>
-    </div>
+
 {% endblock %}

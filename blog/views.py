@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post,Tags,Comment
+from .models import Post,Tags,Comment,CustomUser
 from django.shortcuts import render, get_object_or_404
 from .forms import PostForm,TagForm,CommentForm,CustomUserCreationForm
 from django.shortcuts import redirect
@@ -10,6 +10,17 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.urls import reverse_lazy
 from django.views import generic
+
+def main(request):
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'baangbang/main.html', {'posts': posts})
+
+def search_univ(request, place_name):
+    return render(request, 'baangbang/search_for_sale.html', {'info': place_name})
+
+
+
+
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -94,3 +105,8 @@ def test(request):
 def email_to_admin(request):
     userId = request.user
     return render(request, 'admin/email.html', {'userId': userId})
+
+@login_required
+def payment(request):
+    user = CustomUser.objects.all()
+    return render(request, 'admin/payment.html', {'user_info': user})

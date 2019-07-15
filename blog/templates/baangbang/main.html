@@ -1,0 +1,41 @@
+{% extends 'baangbang/base.html' %}
+
+{% block content %}
+<div class="wrap">
+    <input type="text" placeholder="대학교 이름을 검색하세요" id="univ_list">    
+    <a href="" id="univ_search" style="display: none">검색</a>
+    <button id="search_btn" onclick="get_univ_name()">검색</button>
+</div>
+<script>
+    $("#univ_list").autocomplete({
+        source: availableUniv,
+        select: function(event, ui) {
+            console.log(ui.item);
+        },
+        focus: function(event, ui) {
+            return false;
+            //event.preventDefault();
+            
+        }
+    });
+    function get_univ_name()
+    {
+        var getText = document.getElementById('univ_list').value;
+        var is_listed = false;
+        for(var i=0; i<availableUniv.length;i++)
+        {
+            if(availableUniv[i] === getText)
+            {
+               is_listed = true;
+               break;
+            }
+        }
+        if(is_listed)
+        {
+            document.getElementById('univ_search').href = "{% url 'search_univ' place_name='서울과학기술대학교'%}";
+            document.getElementById('univ_search').click();
+        }
+        else alert('대학명을 바르게 입력해주세요');
+    }
+</script>
+{% endblock %}
