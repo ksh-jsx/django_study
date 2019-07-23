@@ -15,8 +15,9 @@ def main(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'baangbang/main.html', {'posts': posts})
 
-def search_univ(request, place_name):
-    return render(request, 'baangbang/search_for_sale.html', {'info': place_name})
+def search_univ(request):
+    q = request.GET.get('q', '')
+    return render(request, 'baangbang/search_for_sale.html', {'info': q})
 
 
 
