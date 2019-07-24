@@ -43,7 +43,7 @@
 <div class="items_wrap">
     <div class="items_scroll">
     {% for items in item %}
-        <div class="item_post" onMouseOver="over_event('{{items.lat}}','{{items.lng}}')">
+        <div class="item_post" onmouseover="over_event('{{items.lat}}','{{items.lng}}')" onmouseout="out_event()">
             <div class="cost">가격 : {{ items.cost }}만원</div>
             <div>태그 : {{ items.tag}}</div>
             <hr>
@@ -159,7 +159,9 @@
                 count++;
             "{% endfor %}"
         });
-        
+
+        kakao.maps.event.addListener(clusterer, 'mouseover', function() {alert('hello') });
+
         function over_event(lat,lng)
         {
             for ( var i = 0; i < over_markers.length; i++ ) {
@@ -172,6 +174,13 @@
             });
             marker.setMap(map);
             over_markers.push(marker);
+        }
+        function out_event()
+        {
+            for ( var i = 0; i < over_markers.length; i++ ) {
+                over_markers[i].setMap(null);
+            }   
+            over_markers = [];
         }
         // 장소 검색 객체를 생성합니다
         var ps = new kakao.maps.services.Places(map); 
