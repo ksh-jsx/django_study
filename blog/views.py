@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post,Tags,Comment,CustomUser
+from .models import Post,Tags,Comment,CustomUser,Items
 from django.shortcuts import render, get_object_or_404
 from .forms import PostForm,TagForm,CommentForm,CustomUserCreationForm
 from django.shortcuts import redirect
@@ -17,11 +17,8 @@ def main(request):
 
 def search_univ(request):
     q = request.GET.get('q', '')
-    return render(request, 'baangbang/search_for_sale.html', {'info': q})
-
-
-
-
+    item = Items.objects.filter(loca=q)
+    return render(request, 'baangbang/search_for_sale.html', {'info': q, 'item':item})
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')

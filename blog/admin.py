@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Post,Tags,Comment,CustomUser
+from .models import Post,Tags,Comment,CustomUser,Items
 from .forms import (CustomUserCreationForm, CustomUserChangeForm)
 
 admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Tags)
+admin.site.register(Items)
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
