@@ -93,6 +93,7 @@
             contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다 
             markers = [], // 마커를 담을 배열입니다
             over_markers = [], // mouseOver위치의 마커를 담을 배열입니다
+            circles = [];
             currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
         
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -107,8 +108,27 @@
         var clusterer = new kakao.maps.MarkerClusterer({
             map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
             averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+            gridSize : 200, //클러스터링 범위
             minLevel: 1, // 클러스터 할 최소 지도 레벨
-            disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+            minClusterSize: 1, //클러스터할 마커 최수 개수
+            disableClickZoom: true, // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+            asdf: [{background: '#fffffff',}],
+            styles: [
+            {
+                width: '40px',
+                height: '40px',
+                background: '#326182',
+                color: '#ffffff',
+                padding:'5px',
+                opacity: 0.95,
+                border: '2px solid white',
+                borderRadius: '100%',
+                textAlign: 'center',
+                lineHeight: '27px',
+                fontSize: '15px',
+                fontWeight: 'bold',
+            },
+            ],
         });
 
     $(function(){
@@ -136,8 +156,13 @@
         kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
             var mk = cluster.getMarkers();
             var count = 0;
+            var item_count = 0;
+            var sum_lat = 0;
+            var sum_lng = 0;
+            removeCircles();
             "{% for items in item %}"     
                 var get_lat = "{{items.lat}}"*1;
+                
                 var is_located = true;
                 var inverted_lat = get_lat.toFixed(10);
                 var get_lng = "{{items.lng}}"*1;
@@ -147,6 +172,9 @@
                     if(mk[i].getPosition().getLat().toFixed(10) == inverted_lat && mk[i].getPosition().getLng().toFixed(10) == inverted_lng)
                     {
                         is_located = true;
+                        sum_lat +=inverted_lat*1;
+                        sum_lng +=inverted_lng*1;
+                        item_count++;
                         break;
                     }
                     else
@@ -158,8 +186,36 @@
                 else document.getElementsByClassName('item_post')[count].style.display = "none";
                 count++;
             "{% endfor %}"
+            var set_radius = 25*map.getLevel()*(map.getLevel()-1);
+            
+            var circle = new kakao.maps.Circle({ 
+                center : new kakao.maps.LatLng(sum_lat/item_count,sum_lng/item_count), // 원의 중심좌표입니다
+                radius: set_radius, // 원의 반지름입니다 m 단위 이며 선 객체를 이용해서 얻어옵니다
+                strokeWeight: 1, // 선의 두께입니다
+                strokeColor: '#00a0e9', // 선의 색깔입니다
+                strokeOpacity: 0.1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+                strokeStyle: 'solid', // 선의 스타일입니다
+                fillColor: '#00a0e9', // 채우기 색깔입니다
+                fillOpacity: 0.2  // 채우기 불투명도입니다 
+            });
+            
+            
+            circle.setMap(map); 
+            circles.push(circle);
         });
 
+        kakao.maps.event.addListener(map, 'zoom_changed', function() {        
+            removeCircles();
+        });
+
+        function removeCircles() {         
+            for (var i = 0; i < circles.length; i++) {
+                circles[i].setMap(null);    
+                circles[i].setMap(null);
+                circles[i].setMap(null);
+            }         
+            circles = [];
+        }
         kakao.maps.event.addListener(clusterer, 'mouseover', function() {alert('hello') });
 
         function over_event(lat,lng)
