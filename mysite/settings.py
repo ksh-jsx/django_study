@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'blog.CustomUser'
+NAVER_CLIENT_ID = 'Qx8tYf5yBkAna0WIP6dC'
+NAVER_SECRET_KEY = 'o6VZP6lOMO'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
