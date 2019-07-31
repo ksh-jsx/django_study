@@ -1,7 +1,6 @@
 from django.urls import path,re_path
 from django.views.generic import TemplateView
 from . import views
-from blog.views import SocialLoginCallbackView
 
 urlpatterns = [
     path('', views.main, name='main'),
@@ -13,7 +12,7 @@ urlpatterns = [
     re_path(r'^blog/post/(?P<pk>\d+)/remove/$', views.post_remove, name='post_remove'),
     re_path(r'^blog/post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
     re_path(r'^blog/email_to_admin/$', views.email_to_admin, name='email_to_admin'),
-    path('accounts/login/<provider>/callback/', SocialLoginCallbackView.as_view()),
+    
     path('signup/', views.SignUp.as_view(), name='signup'),
     path('signup_success/', TemplateView.as_view(template_name='registration/signup_success.html'), name='signup_success'),
     path('test', views.test, name='test'),

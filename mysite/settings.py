@@ -35,16 +35,31 @@ LOGOUT_REDIRECT_URL = '/'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #provider
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.naver'
 ]
 
 AUTH_USER_MODEL = 'blog.CustomUser'
 NAVER_CLIENT_ID = 'Qx8tYf5yBkAna0WIP6dC'
 NAVER_SECRET_KEY = 'o6VZP6lOMO'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

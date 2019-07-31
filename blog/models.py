@@ -34,6 +34,9 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
+class Blog(models.Model):
+    text = models.TextField()
+
 class Tags(models.Model):
     tag = models.CharField(max_length=10)
 
