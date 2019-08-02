@@ -44,6 +44,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Application definition
 
 INSTALLED_APPS = [
+    'blog',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -51,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    
 
     #allauth
     'allauth',

@@ -17,15 +17,14 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import (path, include)
 from django.contrib.auth import views
-from django.contrib.auth.views import LoginView,LogoutView
+from django.contrib.auth.views import LoginView,LogoutView,PasswordResetView
 from blog.views import SocialLoginCallbackView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('user/', include('blog.urls')),
     path('user/', include('django.contrib.auth.urls')),
-    url(r'^passreset/$',views.password_reset,name='forgot_password1'),
-    url(r'^passresetdone/$',views.password_reset_done,name='forgot_password2'),
+    url(r'^accounts/password_reset/$', PasswordResetView.as_view(), name = 'password_reset'),
     url(r'^accounts/login/$',  LoginView.as_view(), name='login'),
     url(r'^accounts/logout/$', LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}),
     path('accounts/login/<provider>/callback/', SocialLoginCallbackView.as_view()),
