@@ -13,8 +13,8 @@ urlpatterns = [
     re_path(r'^blog/post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
     re_path(r'^blog/email_to_admin/$', views.email_to_admin, name='email_to_admin'),
     
-    path('signup/', views.SignUp.as_view(), name='signup'),
-    path('signup_success/', TemplateView.as_view(template_name='registration/signup_success.html'), name='signup_success'),
+    path('accounts/signup/', views.SignUp.as_view(), name='signup'),
+    path('accounts/signup_success/', TemplateView.as_view(template_name='registration/signup_success.html'), name='signup_success'),
     path('test', views.test, name='test'),
     path('payment', views.payment, name='payment'),
 ]

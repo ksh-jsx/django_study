@@ -16,8 +16,8 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     add_fieldsets = (
         ('ID & PASSWORD', {'fields': ('username', 'password1', 'password2')}),
-        ('NAME', {'fields': ('first_name', 'last_name','name')}),
-        ('PERSONAL INFO', {'fields': ('gender', 'job')}),
+        ('NAME', {'fields': ('name')}),
+        ('PERSONAL INFO', {'fields': ('gender', 'job','email address')}),
         ('PERMISSIONS', {'fields': ('is_active', 'is_staff', 'is_superuser')})
     )
      
@@ -25,7 +25,7 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     fieldsets = (
         ('ID & PASSWORD', {'fields': ('username', 'password')}),
-        ('NAME', {'fields': ('first_name', 'last_name','name')}),
+        ('NAME & EMAIL', {'fields': ('name','email')}),
         ('PERSONAL INFO', {'fields': ('gender', 'job')}),
         ('PERMISSIONS', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )

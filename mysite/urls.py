@@ -24,9 +24,12 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('user/', include('blog.urls')),
     path('user/', include('django.contrib.auth.urls')),
+    url(r'^passreset/$',views.password_reset,name='forgot_password1'),
+    url(r'^passresetdone/$',views.password_reset_done,name='forgot_password2'),
     url(r'^accounts/login/$',  LoginView.as_view(), name='login'),
     url(r'^accounts/logout/$', LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}),
     path('accounts/login/<provider>/callback/', SocialLoginCallbackView.as_view()),
-    path('accounts/',include('allauth.urls')),
     url(r'', include('blog.urls')),
+    path('accounts/',include('allauth.urls')),
+    
 ]
