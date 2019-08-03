@@ -109,7 +109,8 @@ def test(request):
 @login_required
 def email_to_admin(request):
     userId = request.user
-    return render(request, 'admin/email.html', {'userId': userId})
+    
+    return render(request, 'admin/email.html', {'userId': userId, 'test':request.META['HTTP_USER_AGENT']})
 
 @login_required
 def payment(request):
