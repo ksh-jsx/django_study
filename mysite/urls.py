@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.urls import (path, include)
+from django.urls import (path)
 from django.contrib.auth import views
 from django.contrib.auth.views import LoginView,LogoutView,PasswordResetView
 from blog.views import SocialLoginCallbackView
