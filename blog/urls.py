@@ -12,7 +12,9 @@ urlpatterns = [
     re_path(r'^blog/post/(?P<pk>\d+)/remove/$', views.post_remove, name='post_remove'),
     re_path(r'^blog/post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
     re_path(r'^blog/email_to_admin/$', views.email_to_admin, name='email_to_admin'),
-    
+
+
+    path('accounts/find_username/',views.find_username,name='find_user'),
     path('accounts/signup/', views.SignUp.as_view(), name='signup'),
     path('accounts/signup_success/', TemplateView.as_view(template_name='registration/signup_success.html'), name='signup_success'),
     path('test', views.test, name='test'),

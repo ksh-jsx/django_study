@@ -16,20 +16,25 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import (path, include)
-from django.contrib.auth import views
-from django.contrib.auth.views import LoginView,LogoutView,PasswordResetView,PasswordResetDoneView
+from allauth.account import views
+from django.contrib.auth.views import LoginView,LogoutView
 from blog.views import SocialLoginCallbackView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('user/', include('blog.urls')),
-    path('user/', include('django.contrib.auth.urls')),
-    url(r'^accounts/password_reset/$', PasswordResetView.as_view(), name = 'password_reset'),
-    url(r'^accounts/password_reset/done$', PasswordResetDoneView.as_view(), name = 'password_reset_doe'),
-    url(r'^accounts/login/$',  LoginView.as_view(), name='login'),
-    url(r'^accounts/logout/$', LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/',include('allauth.urls')),
+    
+    url(r"^accounts/password/reset/$", views.password_reset,name="account_reset_password"),
+    url(r"^password/reset/done/$", views.password_reset_done,name="account_reset_password_done"),
+    url(r"^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$",views.password_reset_from_key,name="account_reset_password_from_key"),
+    url(r"^password/reset/key/done/$", views.password_reset_from_key_done,name="account_reset_password_from_key_done"),
+    
+    url(r'^accounts/login/$',  views.login, name='login'),
+    url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
     path('accounts/login/<provider>/callback/', SocialLoginCallbackView.as_view()),
     url(r'', include('blog.urls')),
-    path('accounts/',include('allauth.urls')),
+    
     
 ]

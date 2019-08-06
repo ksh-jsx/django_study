@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import Post,Tags,Comment,CustomUser,Items
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm,TagForm,CommentForm,CustomUserCreationForm
+from .forms import PostForm,TagForm,CommentForm,CustomUserCreationForm,find_userForm
 from django.shortcuts import redirect
 from django.db.models import F,Count
 from django.contrib.auth import get_user_model
@@ -26,6 +26,22 @@ def search_univ(request):
     q = request.GET.get('q', '')
     item = Items.objects.filter(loca=q)
     return render(request, 'baangbang/search_for_sale.html', {'info': q, 'item':item})
+
+def find_username(request):
+    if request.method == "POST":
+        form = find_userForm(request.POST)
+        post = form.save(commit=False)
+        posts = CustomUser.objects.filter(name=post.name, email=post.email).values('username', 'name')
+    
+        if posts:
+            return render(request, 'registration/find_username.html', {'form': '키미노 ID와 "'+posts[0]['username']+'" 데스'}) 
+        else:
+            invalid = "존재하지않는 정보입니다."
+            return render(request, 'registration/find_username.html', {'form': invalid}) 
+    else:
+        form = find_userForm()
+        return render(request, 'registration/find_username.html', {'form': form}) 
+        #없는 정보일때 오류남
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -105,6 +121,8 @@ def test(request):
 
     test = Tags.objects.all().values('tag').annotate(total=Count('tag')).order_by('-total')[:5]
     return render(request, 'blog/test.html', {'test': test,'form' : form})
+
+
 
 @login_required
 def email_to_admin(request):

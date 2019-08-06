@@ -11,6 +11,12 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'text','age',)
 
+class find_userForm(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('name', 'email',)
+
 class TagForm(forms.ModelForm):
 
     class Meta:
@@ -34,3 +40,5 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username','name', 'email', 'gender', 'job')
+
+
