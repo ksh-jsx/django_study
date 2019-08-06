@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.urls import (path)
+from django.urls import (path, include)
 from django.contrib.auth import views
-from django.contrib.auth.views import LoginView,LogoutView,PasswordResetView
+from django.contrib.auth.views import LoginView,LogoutView,PasswordResetView,PasswordResetDoneView
 from blog.views import SocialLoginCallbackView
 
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
     path('user/', include('blog.urls')),
     path('user/', include('django.contrib.auth.urls')),
     url(r'^accounts/password_reset/$', PasswordResetView.as_view(), name = 'password_reset'),
+    url(r'^accounts/password_reset/done$', PasswordResetDoneView.as_view(), name = 'password_reset_doe'),
     url(r'^accounts/login/$',  LoginView.as_view(), name='login'),
     url(r'^accounts/logout/$', LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}),
     path('accounts/login/<provider>/callback/', SocialLoginCallbackView.as_view()),
