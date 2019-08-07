@@ -1,0 +1,49 @@
+nav{width:1200px;margin: 0 auto;height:60px;border-bottom:2px solid #bdbdbd;padding-top:20px}
+nav img{width:100px;height:100%;padding:0px; position: relative;top: -10px}
+nav ul{list-style:none;padding-left:0;display: inline;float:right}
+nav ul li{display: inline;border-left:1px solid #999; margin: 3px;}
+nav ul li a{color:#000000}
+nav ul li:first-child{border-left:none;} 
+nav .ul2{padding-right:30px;}
+nav .ul2 li{border:0;color:#218261}
+
+.animation_1{animation-name: ani_1;animation-duration: 2s;position: relative}
+.animation_2{animation-name: ani_2;animation-duration: 2.5s;position: relative}
+.animation_3{animation-name: ani_3;animation-duration: 3s;position: relative}
+.animation_4{animation-name: ani_4;animation-duration: 3.5s;position: relative;width:320px;height:40px;padding-left:20px;padding-top:13px;background: #fcee21; border-radius: 20px;font-size:12px;color:#218261;font-weight:bold}
+.animation_5{animation-name: ani_5;animation-duration: 4s;position: relative}
+.animation_6{animation-name: ani_6;animation-duration: 4.2s;position: relative}
+@keyframes ani_1 {
+    0% {top: -15px;opacity:0;}
+    100% {top: 0px;opacity:1;}
+  }
+
+@keyframes ani_2 {
+    0% {top: -15px;opacity:0;}
+    40% {top: -15px;opacity:0;}
+    100% {top: 0px;opacity:1;}
+  }
+
+@keyframes ani_3 {
+    0% {top: -15px;opacity:0;}
+    60% {top: -15px;opacity:0;}
+    100% {top: 0px;opacity:1;}
+  }
+
+@keyframes ani_4{
+    0% {bottom: -15px;opacity:0;}
+    70% {bottom: -15px;opacity:0;}
+    100% {bottom: 0px;opacity:1;}
+  }
+
+@keyframes ani_5{
+    0% {left: 50px;opacity:0;}
+    80% {left: 50px;opacity:0;}
+    100% {left: 0px;opacity:1;}
+  }
+
+@keyframes ani_6{
+    0% {left: 50px;opacity:0;}
+    80% {left: 50px;opacity:0;}
+    100% {left: 0px;opacity:1;}
+  }
