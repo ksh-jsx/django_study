@@ -42,9 +42,13 @@
     <script>
         function check_password()
         {
-            if(document.getElementById('id_password2').value ===document.getElementById('id_password1').value)
+            if(document.getElementById('id_password2').value === document.getElementById('id_password1').value && document.getElementById('id_password1').value.length > 7)
             {
                 document.getElementById("submitBtn").click();
+            }
+            else if(document.getElementById('id_password1').value.length < 8  || document.getElementById('id_password2').value.length < 8)
+            {
+                alert('비밀번호를 8자이상 적어주세요')                
             }
             else
             {

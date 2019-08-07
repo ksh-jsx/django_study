@@ -451,6 +451,7 @@ class Items(models.Model):
         ('화신사이버대학교','화신사이버대학교'),
 
     )
+    auto_increment_id = models.AutoField(primary_key=True)
     cost = models.IntegerField()
     tag = models.CharField(max_length=10)
     lat = models.DecimalField(max_digits=13, decimal_places=10)

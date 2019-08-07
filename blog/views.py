@@ -27,6 +27,12 @@ def search_univ(request):
     item = Items.objects.filter(loca=q)
     return render(request, 'baangbang/search_for_sale.html', {'info': q, 'item':item})
 
+def item_detail(request):
+    get_id = request.GET.get('item_id', '')
+    detail = Items.objects.filter(auto_increment_id=get_id)
+    return render(request, 'baangbang/item_detail.html', {'info': get_id, 'detail':detail})
+
+
 def find_username(request):
     if request.method == "POST":
         form = find_userForm(request.POST)
@@ -34,14 +40,14 @@ def find_username(request):
         posts = CustomUser.objects.filter(name=post.name, email=post.email).values('username', 'name')
     
         if posts:
-            return render(request, 'registration/find_username.html', {'form': '키미노 ID와 "'+posts[0]['username']+'" 데스'}) 
+            return render(request, 'registration/find_username.html', {'form': '당신의 ID는 "'+posts[0]['username']+'" 입니다.'}) 
         else:
             invalid = "존재하지않는 정보입니다."
             return render(request, 'registration/find_username.html', {'form': invalid}) 
     else:
         form = find_userForm()
         return render(request, 'registration/find_username.html', {'form': form}) 
-        #없는 정보일때 오류남
+       
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
