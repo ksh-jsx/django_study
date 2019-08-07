@@ -3,8 +3,8 @@
 {% block content %}
 <form action="/search_univ/" method="get">
     <input type="text" placeholder="대학교 이름을 검색하세요" id="univ_list" name="q">    
-    <a href="" id="univ_search" style="display: none">검색</a>
-    <button id="search_btn" onclick="get_univ_name()">검색</button>
+    <input type="submit" id="univ_search" style="display: none">
+    <a id="search_btn" onclick="get_univ_name()" style="cursor:pointer">검색</a>
 </div>
 <script>
     $("#univ_list").autocomplete({
