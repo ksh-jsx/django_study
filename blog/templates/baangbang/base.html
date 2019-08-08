@@ -2,9 +2,10 @@
 <html>
     <head>
         <title>Django 방방!</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        
+        <link rel="stylesheet" type="text/css" href="../../static/slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="../../static/slick/slick-theme.css"/>
         <link rel="stylesheet" href="{% static 'css/import.css' %}">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -15,36 +16,34 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
     <body style="margin: 0">
-            <nav>
-                    <a href="/">
-                        <img src="/static/img/main_logo.png">
-                    </a>
-                    <ul class="ul1">
-                            <li>&nbsp;&nbsp;고객센터</li>
-                            <li>&nbsp;&nbsp;이용방법</li>
-                            <li>&nbsp;&nbsp;방방?</li>
-                            {% if user.is_authenticated %}
-                                <li>&nbsp;&nbsp;내정보</li>
-                                <li><a href="{% url 'logout' %}">&nbsp;&nbsp;로그아웃</a></li>
-                            {% else %}
-                                <li><a href="{% url 'signup' %}">&nbsp;&nbsp;회원가입</a></li>
-                                <li><a href="{% url 'login' %}">&nbsp;&nbsp;로그인</a></li>
-                            {% endif %}
-                        </ul>
-                    
-                    <ul class="ul2">
-                        <li>&nbsp;&nbsp;방 내놓기</li>
-                        <li>&nbsp;●&nbsp;</li>
-                        <li>&nbsp;&nbsp;매물보기</li>
-                    </ul>
-        
-                    
-                </nav>
-        <div class="content container">
-            <div class="row">
+        <nav>
+            <a href="/">
+                <img src="/static/img/main_logo.png">
+            </a>
+            <ul class="ul1">
+                    <li>&nbsp;&nbsp;고객센터</li>
+                    <li>&nbsp;&nbsp;이용방법</li>
+                    <li>&nbsp;&nbsp;방방?</li>
+                    {% if user.is_authenticated %}
+                        <li>&nbsp;&nbsp;내정보</li>
+                        <li><a href="{% url 'logout' %}">&nbsp;&nbsp;로그아웃</a></li>
+                    {% else %}
+                        <li><a href="{% url 'signup' %}">&nbsp;&nbsp;회원가입</a></li>
+                        <li><a href="{% url 'login' %}">&nbsp;&nbsp;로그인</a></li>
+                    {% endif %}
+                </ul>
+            
+            <ul class="ul2">
+                <li>&nbsp;&nbsp;방 내놓기</li>
+                <li>&nbsp;●&nbsp;</li>
+                <li>&nbsp;&nbsp;매물보기</li>
+            </ul>
+
+            
+        </nav>
+        <div class="container">
                 {% block content %}
                 {% endblock %}
-            </div>
         </div>
     </body>
 </html>
