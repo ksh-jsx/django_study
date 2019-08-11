@@ -1,7 +1,7 @@
 .container{width: 100%;margin: 0 auto;margin-top:80px;} 
 *:focus {outline: none;}
 a{text-decoration: none}
-nav{width:1200px;margin: 0 auto;height:60px;border-bottom:2px solid #bdbdbd;padding-top:20px}
+nav{width:100%;margin: 0 auto;height:60px;border-bottom:2px solid #bdbdbd;padding-top:20px}
 nav img{width:100px;height:100%;padding:0px; position: relative;top: -10px}
 nav ul{list-style:none;padding-left:0;display: inline;float:right}
 nav ul li{display: inline;border-left:1px solid #999; margin: 3px;}
@@ -10,7 +10,7 @@ nav ul li:first-child{border-left:none;}
 nav .ul2{padding-right:30px;}
 nav .ul2 li{border:0;color:#218261}
 
-.animation_0{width:1024px; margin: 0 auto;height:270px;padding:30px;animation-name: ani_0;animation-duration: 1s;}
+.animation_0{width:1024px; margin: 0 auto;height:270px;padding:30px;animation-name: ani_0;animation-duration: 4s;}
 .animation_1{animation-name: ani_1;animation-duration: 2s;position: relative}
 .animation_2{animation-name: ani_2;animation-duration: 2.5s;position: relative}
 .animation_3{animation-name: ani_3;animation-duration: 3s;position: relative}

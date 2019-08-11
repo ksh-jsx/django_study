@@ -17,29 +17,30 @@
     </head>
     <body style="margin: 0">
         <nav>
-            <a href="/">
-                <img src="/static/img/main_logo.png">
-            </a>
-            <ul class="ul1">
-                    <li>&nbsp;&nbsp;고객센터</li>
-                    <li>&nbsp;&nbsp;이용방법</li>
-                    <li>&nbsp;&nbsp;방방?</li>
-                    {% if user.is_authenticated %}
-                        <li>&nbsp;&nbsp;내정보</li>
-                        <li><a href="{% url 'logout' %}">&nbsp;&nbsp;로그아웃</a></li>
-                    {% else %}
-                        <li><a href="{% url 'signup' %}">&nbsp;&nbsp;회원가입</a></li>
-                        <li><a href="{% url 'login' %}">&nbsp;&nbsp;로그인</a></li>
-                    {% endif %}
+            <div style="width: 1200px;margin:0 auto">
+                <a href="/">
+                    <img src="/static/img/main_logo.png">
+                </a>
+                <ul class="ul1">
+                        <li>&nbsp;&nbsp;고객센터</li>
+                        <li>&nbsp;&nbsp;이용방법</li>
+                        <li>&nbsp;&nbsp;방방?</li>
+                        {% if user.is_authenticated %}
+                            <li>&nbsp;&nbsp;내정보</li>
+                            <li><a href="{% url 'logout' %}">&nbsp;&nbsp;로그아웃</a></li>
+                        {% else %}
+                            <li><a href="{% url 'signup' %}">&nbsp;&nbsp;회원가입</a></li>
+                            <li><a href="{% url 'login' %}">&nbsp;&nbsp;로그인</a></li>
+                        {% endif %}
+                    </ul>
+                
+                <ul class="ul2">
+                    <li>&nbsp;&nbsp;방 내놓기</li>
+                    <li>&nbsp;●&nbsp;</li>
+                    <li>&nbsp;&nbsp;매물보기</li>
                 </ul>
-            
-            <ul class="ul2">
-                <li>&nbsp;&nbsp;방 내놓기</li>
-                <li>&nbsp;●&nbsp;</li>
-                <li>&nbsp;&nbsp;매물보기</li>
-            </ul>
 
-            
+            </div>
         </nav>
         <div class="container">
                 {% block content %}
