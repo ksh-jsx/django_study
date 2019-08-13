@@ -5,36 +5,37 @@
 {% if form.errors %}
 <p>이름과 비밀번호가 일치하지 않습니다. 다시 시도해주세요.</p>
 {% endif %}
-
-<form action="{% url 'login' %}" method="post" autocomplete="off" class="login_form">
-<div>로그인</div>
-{%csrf_token%}
-<div class="input_box">
-    <div class="idAndPass">
-        <input type="text" name="username" placeholder="  아이디">
-        <br>
-        <input type="password" name="password" placeholder="  비밀번호">
-        <input type="hidden" name="next" value="{{ next }}" />            
-    </div>
-    <div class="small_area">
-        <div class="left">
-            <input type="checkbox" id="idSaveCheck">
-            <label for="idSaveCheck">아이디 저장</label>
+<div class="login_container">
+    <form action="{% url 'login' %}" method="post" autocomplete="off" class="login_form">
+    <div>로그인</div>
+    {%csrf_token%}
+    <div class="input_box">
+        <div class="idAndPass">
+            <input type="text" name="username" placeholder="  아이디">
+            <br>
+            <input type="password" name="password" placeholder="  비밀번호">
+            <input type="hidden" name="next" value="{{ next }}" />            
         </div>
-        <div class="right">
-            <a href="{% url 'account_reset_password' %}">비밀번호 찾기</a>
+        <div class="small_area">
+            <div class="left">
+                <input type="checkbox" id="idSaveCheck">
+                <label for="idSaveCheck">아이디 저장</label>
+            </div>
+            <div class="right">
+                <a href="{% url 'account_reset_password' %}">비밀번호 찾기</a>
+            </div>
+        </div>
+        <div class="submit_btn">
+            <input type="submit" value="로그인">
+        </div>
+        {% include 'registration/social_login.html' %}
+        <div class="goto_signup">
+            <span>아직 회원이 아니신가요? <a href="{% url 'signup' %}"><strong>회원가입 하기</strong></a></span>
         </div>
     </div>
-    <div class="submit_btn">
-        <input type="submit" value="로그인">
-    </div>
-    {% include 'registration/social_login.html' %}
-    <div class="goto_signup">
-        <span>아직 회원이 아니신가요? <a href="{% url 'signup' %}"><strong>회원가입 하기</strong></a></span>
-    </div>
+    </form>
+    <div class="ad_banner">광고성 배너</div>
 </div>
-</form>
-<div class="ad_banner">광고성 배너</div>
   <script>
     $(document).ready(function(){
         // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.

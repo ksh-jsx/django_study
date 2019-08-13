@@ -1,36 +1,38 @@
 {% extends 'baangbang/base.html' %}
 
 {% block content %}
-<div style="width:1200px;height:450px;margin:0 auto;background-image:url('../../static/img/main_bg.jpg');background-size:100% 100% ">
-    <div style="width:1024px;height:100%;margin:0 auto;">
-        <div style="float:left;width:50%;font-size:40px;font-weight:bold">
-            <div class="animation_1"><span style="color:#218261">잠깐</span> 사는 방,</div>
-            <div class="animation_2"><span style="color:#218261">잠깐</span> 파는 방.</div>
-            <div class="animation_3">방방에서 거래하세요.</div>
-            <div class="animation_4">&nbsp;&nbsp;단기 방 구할 때도 나누방, 단기 방 팔 때도 나누방&nbsp;&nbsp;</div>
-        </div>
-        <div style="float:left;width:50%">
-            <form action="/search_univ/" method="get">
-                <div class="animation_5">
-                    <label for="univ_list" style="color:#218261;font-size:30px">▶ 어느 지역 방을 찾으시나요?</label>
-                    <br>
-                    <div style="width:410px;border-radius:15px 15px 15px 15px;border: 1px solid #218261;margin-top:30px;">
-                        <input type="text" placeholder="대학교 이름 검색" id="univ_list" name="q" style="width:300px;height:65px;border-radius:15px 15px 15px 15px;border:0;margin-left:30px" autocomplete="off">    
-                        <input type="text" id="search_btn" value="  검색" onclick="get_univ_name()" style="height:65px;width:70px;cursor:pointer;border:0;border-left:1px solid #218261;position: relative;left:-5px;top:1px;padding-left:10px " readonly>
-                    </div>
-                </div>
-                
-                <input type="submit" id="univ_search" style="display: none">
-            </form>
-            <div class="animation_6" style="padding-top:30px ">
-                <label for="univ_list" style="color:#218261;font-size:30px">▶ 내 방을 팔고싶어요!</label>
+<div style="width:100%;height:450px;margin:0 auto;position: absolute;z-index:1 ">
+    <img src="../../static/img/main_bg.jpg" style="width:3000px;height:450px;">
+</div>
+<div style="width:1024px;height:450px;margin:0 auto;position: relative;z-index: 10;">
+    <div style="float:left;width:50%;font-size:40px;font-weight:bold">
+        <div class="animation_1"><span style="color:#218261">잠깐</span> 사는 방,</div>
+        <div class="animation_2"><span style="color:#218261">잠깐</span> 파는 방.</div>
+        <div class="animation_3">방방에서 거래하세요.</div>
+        <div class="animation_4">&nbsp;&nbsp;단기 방 구할 때도 나누방, 단기 방 팔 때도 나누방&nbsp;&nbsp;</div>
+    </div>
+    <div style="float:left;width:50%">
+        <form action="/search_univ/" method="get">
+            <div class="animation_5">
+                <label for="univ_list" style="color:#218261;font-size:30px">▶ 어느 지역 방을 찾으시나요?</label>
                 <br>
-                <div style="width:308px;height:48px;border-radius:15px 0px 0px 15px;border: 1px solid #ffffff;background: #218261;color:#ffffff;float:left;font-size:20px;padding-top:15px;padding-left:30px;margin-top:30px">내 방 등록하기</div>    
-                <input type="text" id="search_btn" value="  →" style="height:65px;width:70px;cursor:pointer;border-radius:0px 15px 15px 0px;border: 1px solid #ffffff;border-left:0;background: #218261;font-size:20px;color:#ffffff;margin-top:30px;padding-left:10px " readonly>
+                <div style="width:410px;border-radius:15px 15px 15px 15px;border: 1px solid #218261;margin-top:30px;">
+                    <input type="text" placeholder="대학교 이름 검색" id="univ_list" name="q" style="width:300px;height:65px;border-radius:15px 15px 15px 15px;border:0;margin-left:30px" autocomplete="off">    
+                    <input type="text" id="search_btn" value="  검색" onclick="get_univ_name()" style="height:65px;width:70px;cursor:pointer;border:0;border-left:1px solid #218261;position: relative;left:-5px;top:1px;padding-left:10px " readonly>
+                </div>
             </div>
+            
+            <input type="submit" id="univ_search" style="display: none">
+        </form>
+        <div class="animation_6" style="padding-top:30px ">
+            <label for="univ_list" style="color:#218261;font-size:30px">▶ 내 방을 팔고싶어요!</label>
+            <br>
+            <div style="width:308px;height:48px;border-radius:15px 0px 0px 15px;border: 1px solid #ffffff;background: #218261;color:#ffffff;float:left;font-size:20px;padding-top:15px;padding-left:30px;margin-top:30px">내 방 등록하기</div>    
+            <input type="text" id="search_btn" value="  →" style="height:65px;width:70px;cursor:pointer;border-radius:0px 15px 15px 0px;border: 1px solid #ffffff;border-left:0;background: #218261;font-size:20px;color:#ffffff;margin-top:30px;padding-left:10px " readonly>
         </div>
     </div>
 </div>
+
 <div style="width:100%; margin: 0 auto;height:300px;background:#218261">
     <div class="animation_0" style="">
     <span style="color:#ffffff;font-weight:bold">*지금 거래 가능한 방*</span>
