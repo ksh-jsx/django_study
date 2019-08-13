@@ -1,62 +1,63 @@
 {% extends 'baangbang/base.html' %}
 
 {% block content %}
-<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-    <ul id="category">
-        <li id="BK9" data-order="0"> 
-            <span class="category_bg bank"></span>
-            은행
-        </li>       
-        <li id="MT1" data-order="1"> 
-            <span class="category_bg mart"></span>
-            마트
-        </li>  
-        <li id="PM9" data-order="2"> 
-            <span class="category_bg pharmacy"></span>
-            약국
-        </li>  
-        <li id="FD6" data-order="3"> 
-            <span class="category_bg food"></span>
-            음식점 
-        </li>  
-        <li id="CE7" data-order="4"> 
-            <span class="category_bg cafe"></span>
-            카페
-        </li>  
-        <li id="CS2" data-order="5"> 
-            <span class="category_bg store"></span>
-            편의점
-        </li>      
-    </ul>
-    <script>
-    </script>
-    <div class="search_wrap" >
-        <form action="/search_univ/" method="get">
-            <input type="text" placeholder="대학교 이름을 검색하세요" id="univ_list" name="q" value="{{info}}">    
-            <a href="" id="univ_search" style="display: none">검색</a>
-            <button id="search_btn" onclick="get_univ_name()">검색</button>
-        </form>
-    </div>
-</div>
-<br>
-<div class="items_wrap">
-    <div id="loading"></div>
-    <div id="items_scroll">
-    {% for items in item %}
-        <div class="item_post" onmouseover="over_event('{{items.lat}}','{{items.lng}}')" onmouseout="out_event()" onclick="goto_detail({{items.auto_increment_id}})">
-            <form action="/search_univ/detail/" method="get">
-                <input type="hidden" value="{{items.auto_increment_id}}" readonly name="item_id">
-                <input type="submit" style="display:none" id="get_id{{items.auto_increment_id}}">
+<div class="sale_wrap" style="width:1024px; margin: 0 auto;">
+    <div class="map_wrap">
+        <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+        <ul id="category">
+            <li id="BK9" data-order="0"> 
+                <span class="category_bg bank"></span>
+                은행
+            </li>       
+            <li id="MT1" data-order="1"> 
+                <span class="category_bg mart"></span>
+                마트
+            </li>  
+            <li id="PM9" data-order="2"> 
+                <span class="category_bg pharmacy"></span>
+                약국
+            </li>  
+            <li id="FD6" data-order="3"> 
+                <span class="category_bg food"></span>
+                음식점 
+            </li>  
+            <li id="CE7" data-order="4"> 
+                <span class="category_bg cafe"></span>
+                카페
+            </li>  
+            <li id="CS2" data-order="5"> 
+                <span class="category_bg store"></span>
+                편의점
+            </li>      
+        </ul>
+        <script>
+        </script>
+        <div class="search_wrap" >
+            <form action="/search_univ/" method="get">
+                <input type="text" placeholder="대학교 이름을 검색하세요" id="univ_list" name="q" value="{{info}}">    
+                <a href="" id="univ_search" style="display: none">검색</a>
+                <button id="search_btn" onclick="get_univ_name()">검색</button>
             </form>
-            <div class="cost">가격 : {{ items.cost }}만원</div>
-            <div>태그 : {{ items.tag}}</div>
-            <hr>
         </div>
-    {% endfor %}
+    </div>
+    <br>
+    <div class="items_wrap">
+        <div id="loading"></div>
+        <div id="items_scroll">
+        {% for items in item %}
+            <div class="item_post" onmouseover="over_event('{{items.lat}}','{{items.lng}}')" onmouseout="out_event()" onclick="goto_detail({{items.auto_increment_id}})" style="cursor: pointer">
+                <form action="/search_univ/detail/" method="get">
+                    <input type="hidden" value="{{items.auto_increment_id}}" readonly name="item_id">
+                    <input type="submit" style="display:none" id="get_id{{items.auto_increment_id}}">
+                </form>
+                <div class="cost">가격 : {{ items.cost }}만원</div>
+                <div>태그 : {{ items.tag}}</div>
+                <hr>
+            </div>
+        {% endfor %}
+        </div>
     </div>
 </div>
-
 <script>
 
     $("#univ_list").autocomplete({

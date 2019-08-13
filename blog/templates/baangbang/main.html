@@ -14,20 +14,20 @@
     <div style="float:left;width:50%">
         <form action="/search_univ/" method="get">
             <div class="animation_5">
-                <label for="univ_list" style="color:#218261;font-size:30px">▶ 어느 지역 방을 찾으시나요?</label>
+                <label for="univ_list" style="color:#218261;font-size:30px;font-weight: bold">▶ 어느 지역 방을 찾으시나요?</label>
                 <br>
                 <div style="width:410px;border-radius:15px 15px 15px 15px;border: 1px solid #218261;margin-top:30px;">
-                    <input type="text" placeholder="대학교 이름 검색" id="univ_list" name="q" style="width:300px;height:65px;border-radius:15px 15px 15px 15px;border:0;margin-left:30px" autocomplete="off">    
-                    <input type="text" id="search_btn" value="  검색" onclick="get_univ_name()" style="height:65px;width:70px;cursor:pointer;border:0;border-left:1px solid #218261;position: relative;left:-5px;top:1px;padding-left:10px " readonly>
+                    <input type="text" placeholder="대학교 이름 검색" id="univ_list" name="q" style="width:300px;height:65px;border-radius:15px 15px 15px 15px;border:0;margin-left:30px;float:left" autocomplete="off">    
+                    <img src="../../static/img/searcher.png" id="search_btn" value="  검색" onclick="get_univ_name()" style="height:40px;width:60px;padding:13px;cursor:pointer;border:0;border-left:1px solid #218261;padding-left:5px ">
                 </div>
             </div>
             
             <input type="submit" id="univ_search" style="display: none">
         </form>
         <div class="animation_6" style="padding-top:30px ">
-            <label for="univ_list" style="color:#218261;font-size:30px">▶ 내 방을 팔고싶어요!</label>
+            <label for="univ_list" style="color:#218261;font-size:30px;font-weight: bold">▶ 내 방을 팔고싶어요!</label>
             <br>
-            <div style="width:308px;height:48px;border-radius:15px 0px 0px 15px;border: 1px solid #ffffff;background: #218261;color:#ffffff;float:left;font-size:20px;padding-top:15px;padding-left:30px;margin-top:30px">내 방 등록하기</div>    
+            <div style="width:308px;height:45px;border-radius:15px 0px 0px 15px;font-weight: bold;border: 1px solid #ffffff;background: #218261;color:#ffffff;float:left;font-size:20px;padding-top:18px;padding-left:30px;margin-top:30px;text-align: center">내 방 등록하기</div>    
             <input type="text" id="search_btn" value="  →" style="height:65px;width:70px;cursor:pointer;border-radius:0px 15px 15px 0px;border: 1px solid #ffffff;border-left:0;background: #218261;font-size:20px;color:#ffffff;margin-top:30px;padding-left:10px " readonly>
         </div>
     </div>

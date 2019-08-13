@@ -11,6 +11,8 @@ nav ul li:first-child{border-left:none;}
 nav .ul2{padding-right:30px;}
 nav .ul2 li{border:0;color:#218261}
 
+#univ_list::placeholder{font-weight: bold;text-align: center;font-size:20px}
+
 .animation_0{width:1024px; margin: 0 auto;height:270px;padding:30px;animation-name: ani_0;animation-duration: 4s;}
 .animation_1{animation-name: ani_1;animation-duration: 2s;position: relative}
 .animation_2{animation-name: ani_2;animation-duration: 2.5s;position: relative}
