@@ -11,6 +11,10 @@ nav ul li:first-child{border-left:none;}
 nav .ul2{padding-right:30px;}
 nav .ul2 li{border:0;color:#218261}
 
+footer{width: 100%; background: #f6f6f6;position: absolute;bottom: 0}
+footer .footer_wrap{width:1000px;margin: 0 auto;}
+footer .footer_wrap > div{text-align: center;}
+
 #univ_list::placeholder{font-weight: bold;text-align: center;font-size:20px}
 
 .animation_0{width:1024px; margin: 0 auto;height:270px;padding:30px;animation-name: ani_0;animation-duration: 4s;}
