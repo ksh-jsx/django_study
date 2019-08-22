@@ -16,11 +16,66 @@ from django.views.generic.base import TemplateView, View
 from django.middleware.csrf import _compare_salted_tokens
 from blog.oauth.providers.naver import NaverLoginMixin
 from django.http import HttpResponseRedirect,HttpResponse
-
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.core.mail import EmailMessage
+from .tokens import account_activation_token
+from django.utils.encoding import force_bytes, force_text
 
 def main(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'baangbang/main.html', {'posts': posts})
+
+    if request.method == "POST":
+        q = request.POST.get('usern', '')
+        is_active = CustomUser.objects.filter(username=q).values('active', 'username')
+        if is_active[0]['active']:
+            return HttpResponse(
+        '<div style="font-size: 40px; width: 100%; height:100%; display:flex; text-align:center; '
+        'justify-content: center; align-items: center;">'
+        '방올리기 페이지~~</span>'
+        '</div>'
+    )
+        else:
+            return render(request, 'baangbang/main.html', {'user_info': is_active[0]['active'] })
+    else:
+        return render(request, 'baangbang/main.html', {'user_info': 'asd'})
+
+def mail_authenticate(request):
+    user = CustomUser.objects.filter(username='shkim787').values('auto_increment_id','email')
+    print(user)
+    current_site = get_current_site(request) 
+    message = render_to_string('account/user_activate_email.html',{
+        'user': user,
+        'domain': current_site.domain,
+        'uid': urlsafe_base64_encode(force_bytes(user[0]['auto_increment_id'])).decode('utf-8'),
+        'token': account_activation_token.make_token(user),
+    })
+    mail_subject = "나누방 인증 메일입니다."
+    user_email = user[0]['email']
+    email = EmailMessage(mail_subject, message, to=[user_email])
+    email.send()
+    return HttpResponse(
+        '<div style="font-size: 40px; width: 100%; height:100%; display:flex; text-align:center; '
+        'justify-content: center; align-items: center;">'
+        '입력하신 이메일<span>로 인증 링크가 전송되었습니다.</span>'
+        '</div>'
+    )
+    return redirect('main')
+
+def activate(request, uid64, token):
+
+    uid = force_text(urlsafe_base64_decode(uid64))
+    user = CustomUser.objects.filter(auto_increment_id=uid).values('active', 'username')
+    print(user)
+    if user is not None :
+        post = get_object_or_404(CustomUser, auto_increment_id=uid)
+        post.active = True
+        post.save()
+        print(user)
+        return redirect('/')
+    else:
+        return HttpResponse('비정상적인 접근입니다.')
 
 def search_univ(request):
     q = request.GET.get('q', '')
@@ -32,6 +87,11 @@ def item_detail(request):
     detail = Items.objects.filter(auto_increment_id=get_id)
     return render(request, 'baangbang/item_detail.html', {'info': get_id, 'detail':detail})
 
+@login_required
+def payment(request):
+    get_id = request.GET.get('item_id', '')
+    detail = Items.objects.filter(auto_increment_id=get_id)
+    return render(request, 'admin/payment.html', {'payment_info': detail})
 
 def find_username(request):
     if request.method == "POST":
@@ -136,10 +196,7 @@ def email_to_admin(request):
     
     return render(request, 'admin/email.html', {'userId': userId, 'test':request.META['HTTP_USER_AGENT']})
 
-@login_required
-def payment(request):
-    user = CustomUser.objects.all()
-    return render(request, 'admin/payment.html', {'user_info': user})
+
 
 class SocialLoginCallbackView(NaverLoginMixin, View):
 

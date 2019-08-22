@@ -33,12 +33,12 @@ class CustomUserCreationForm(UserCreationForm):
  
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username','name', 'email', 'gender', 'job')
+        fields = ('username','name', 'email', 'gender', 'job','active','auto_increment_id')
   
 class CustomUserChangeForm(UserChangeForm):
  
     class Meta:
         model = CustomUser
-        fields = ('username','name', 'email', 'gender', 'job')
+        fields = ('username','name', 'email', 'gender', 'job','active','auto_increment_id')
 
 

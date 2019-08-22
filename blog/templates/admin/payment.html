@@ -4,20 +4,21 @@
     <meta charset="utf-8" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    {% for items in payment_info %}
     <script>
         (function() {
             var IMP = window.IMP;
             var code = "imp23127671";  // FIXME: 가맹점 식별코드
             IMP.init(code);
-    
+            var cost = '{{items.cost}}'*500;
             // 결제요청
             IMP.request_pay({
                 // name과 amount만 있어도 결제 진행가능
                 pg : 'html5_inicis', // pg 사 선택
                 pay_method : 'card',
                 merchant_uid : 'merchant_' + new Date().getTime(),
-                name : '주문명:결제테스트',
-                amount : 100,
+                name : '{{items.loca}}',
+                amount : cost,
                 buyer_email : 'iamport@siot.do',
                 buyer_name : '구매자이름',
                 buyer_tel : '010-1234-5678',
@@ -38,7 +39,8 @@
                 alert(msg);
             });
         })();
-        </script>
+    </script>
+    {% endfor %}
 
 </head>
 

@@ -463,6 +463,9 @@ class CustomUser(AbstractUser):
         ('M', '남성'),
         ('W', '여성'),
     )
+    auto_increment_id = models.AutoField(primary_key=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
     gender = models.CharField(verbose_name='성별', max_length=1, choices=GENDERS)
     name = models.CharField(verbose_name='이름', max_length=10)
     Access_path = (

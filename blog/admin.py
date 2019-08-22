@@ -15,6 +15,7 @@ class CustomUserAdmin(UserAdmin):
     # add page
     add_form = CustomUserCreationForm
     add_fieldsets = (
+        
         ('ID & PASSWORD', {'fields': ('username', 'password1', 'password2')}),
         ('NAME', {'fields': ('name')}),
         ('PERSONAL INFO', {'fields': ('gender', 'job','email address')}),
@@ -24,14 +25,15 @@ class CustomUserAdmin(UserAdmin):
     # change page
     form = CustomUserChangeForm
     fieldsets = (
+        
         ('ID & PASSWORD', {'fields': ('username', 'password')}),
         ('NAME & EMAIL', {'fields': ('name','email')}),
-        ('PERSONAL INFO', {'fields': ('gender', 'job')}),
-        ('PERMISSIONS', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
+        ('PERSONAL INFO', {'fields': ('gender', 'job',)}),
+        ('PERMISSIONS', {'fields': ('is_active', 'is_staff', 'is_superuser','active')}),
     )
      
     # list page
-    list_display = ['username','name', 'email', 'gender', 'job']
+    list_display = ['username','name', 'email', 'gender', 'job','created_at','active']
  
  
 admin.site.register(CustomUser, CustomUserAdmin)

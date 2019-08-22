@@ -4,8 +4,11 @@ from . import views
 
 urlpatterns = [
     path('', views.main, name='main'),
+    path('mail_authenticate', views.mail_authenticate, name='mail_authenticate'),
+    path('activate/<str:uid64>/<str:token>', views.activate, name='activate'),
     path('search_univ/', views.search_univ, name='search_univ'),
     path('search_univ/detail/', views.item_detail, name='item_detail'),
+    path('payment/', views.payment, name='payment'),
     path('blog', views.post_list, name='post_list'),
     path('blog/post/<int:pk>/', views.post_detail, name='post_detail'),
     path('blog/post/new/', views.post_new, name='post_new'),
@@ -19,6 +22,6 @@ urlpatterns = [
     path('accounts/signup/', views.SignUp.as_view(), name='signup'),
     path('accounts/signup_success/', TemplateView.as_view(template_name='registration/signup_success.html'), name='signup_success'),
     path('test', views.test, name='test'),
-    path('payment', views.payment, name='payment'),
+    
 ]
 
