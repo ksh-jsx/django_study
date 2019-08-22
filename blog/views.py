@@ -45,7 +45,7 @@ def main(request):
 
 @login_required
 def mail_authenticate(request):
-    user = CustomUser.objects.filter(username='shkim787').values('auto_increment_id','email')
+    user = CustomUser.objects.filter(username=request.user.username).values('auto_increment_id','email')
     print(user)
     current_site = get_current_site(request) 
     message = render_to_string('account/user_activate_email.html',{
@@ -180,7 +180,7 @@ def add_comment_to_post(request, pk):
 class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('signup_success')
-    template_name = 'registration/signup.html'
+    template_name = 'account/signup.html'
 
 
 def test(request):
