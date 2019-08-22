@@ -41,6 +41,7 @@ def main(request):
     else:
         return render(request, 'baangbang/main.html', {'user_info': 'asd'})
 
+@login_required
 def mail_authenticate(request):
     user = CustomUser.objects.filter(username='shkim787').values('auto_increment_id','email')
     print(user)
@@ -63,6 +64,7 @@ def mail_authenticate(request):
     )
     return redirect('main')
 
+@login_required
 def activate(request, uid64, token):
 
     uid = force_text(urlsafe_base64_decode(uid64))
