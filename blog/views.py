@@ -23,6 +23,8 @@ from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 from django.utils.encoding import force_bytes, force_text
+from django.contrib import messages
+
 
 def main(request):
 
@@ -39,7 +41,7 @@ def main(request):
         else:
             return render(request, 'baangbang/main.html', {'user_info': is_active[0]['active'] })
     else:
-        return render(request, 'baangbang/main.html', {'user_info': 'asd'})
+        return render(request, 'baangbang/main.html', {'user_info': 'none'})
 
 @login_required
 def mail_authenticate(request):
@@ -62,7 +64,6 @@ def mail_authenticate(request):
         '입력하신 이메일<span>로 인증 링크가 전송되었습니다.</span>'
         '</div>'
     )
-    return redirect('main')
 
 @login_required
 def activate(request, uid64, token):
@@ -74,8 +75,13 @@ def activate(request, uid64, token):
         post = get_object_or_404(CustomUser, auto_increment_id=uid)
         post.active = True
         post.save()
-        print(user)
-        return redirect('/')
+        return HttpResponse(
+        '<a href="/" id="goto_main" style="display:none">test</a>'
+        '<script>'
+        '   alert("인증되었습니다");'
+        '   document.getElementById("goto_main").click();'
+        '</script>'
+    )
     else:
         return HttpResponse('비정상적인 접근입니다.')
 
