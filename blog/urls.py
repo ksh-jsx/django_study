@@ -13,10 +13,12 @@ urlpatterns = [
     path('blog/post/<int:pk>/', views.post_detail, name='post_detail'),
     path('blog/post/new/', views.post_new, name='post_new'),
     path('blog/post/<int:pk>/edit/', views.post_edit, name='post_edit'),
+    
+    re_path(r'^like/$', views.post_like, name='post_like'),
+    re_path(r'^sort/$', views.sort, name='sort'),
     re_path(r'^blog/post/(?P<pk>\d+)/remove/$', views.post_remove, name='post_remove'),
     re_path(r'^blog/post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
     re_path(r'^blog/email_to_admin/$', views.email_to_admin, name='email_to_admin'),
-
 
     path('accounts/find_username/',views.find_username,name='find_user'),
     path('accounts/signup/', views.SignUp.as_view(), name='signup'),

@@ -1,12 +1,14 @@
+import json
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post,Tags,Comment,CustomUser,Items
+from .models import Post,Tags,Comment,CustomUser,Items,Like
 from django.shortcuts import render, get_object_or_404
 from .forms import PostForm,TagForm,CommentForm,CustomUserCreationForm,find_userForm
 from django.shortcuts import redirect
 from django.db.models import F,Count
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib import auth,messages
 from django.urls import reverse_lazy
@@ -76,19 +78,63 @@ def activate(request, uid64, token):
         post.active = True
         post.save()
         return HttpResponse(
-        '<a href="/" id="goto_main" style="display:none">test</a>'
-        '<script>'
-        '   alert("인증되었습니다");'
-        '   document.getElementById("goto_main").click();'
-        '</script>'
-    )
+            '<a href="/" id="goto_main" style="display:none">test</a>'
+            '<script>'
+            '   alert("인증되었습니다");'
+            '   document.getElementById("goto_main").click();'
+            '</script>'
+        )
     else:
         return HttpResponse('비정상적인 접근입니다.')
 
 def search_univ(request):
-    q = request.GET.get('q', '')
-    item = Items.objects.filter(loca=q)
-    return render(request, 'baangbang/search_for_sale.html', {'info': q, 'item':item})
+    like = Like.objects.filter(author=request.user)
+    if request.method == "POST":
+        univ = request.POST.get('univ', None)
+        cost1 = request.POST.get('cost1', None)
+        cost2 = request.POST.get('cost2', None)
+        item = Items.objects.filter(loca=univ , cost__range =(cost1, cost2))
+        return render(request, 'baangbang/sales_sort.html', {'info': univ, 'item':item, 'like':like})
+    else:
+        q = request.GET.get('q', '')
+        item = Items.objects.filter(loca=q)
+        return render(request, 'baangbang/search_for_sale.html', {'info': q, 'item':item, 'like':like})
+
+@login_required
+@require_POST # 해당 뷰는 POST method 만 받는다.
+def post_like(request):
+    pk = request.POST.get('pk', None) # ajax 통신을 통해서 template에서 POST방식으로 전달
+    item = get_object_or_404(Items, pk=pk)
+    post_like, post_like_created = item.like_set.get_or_create(author=request.user)
+
+    if not post_like_created:
+        post_like.delete()
+        message = "좋아요 취소"
+    else:
+        message = "좋아요"
+
+    context = {'message': message}
+
+    return HttpResponse(json.dumps(context), content_type="application/json")
+    # context를 json 타입으로
+
+@require_POST # 해당 뷰는 POST method 만 받는다.
+def sort(request):
+    pk = request.POST.get('pk', None) # ajax 통신을 통해서 template에서 POST방식으로 전달
+    item = get_object_or_404(Items, pk=pk)
+    post_like, post_like_created = item.like_set.get_or_create(author=request.user)
+
+    if not post_like_created:
+        post_like.delete()
+        message = "좋아요 취소"
+    else:
+        message = "좋아요"
+
+    context = {'message': message}
+
+    return HttpResponse(json.dumps(context), content_type="application/json")
+    # context를 json 타입으로
+
 
 def item_detail(request):
     get_id = request.GET.get('item_id', '')
@@ -176,7 +222,6 @@ def add_comment_to_post(request, pk):
         form = CommentForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
 
- 
 class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('signup_success')

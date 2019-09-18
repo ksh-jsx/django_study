@@ -3,45 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
-class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    age = models.IntegerField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    published_date = models.DateTimeField(
-            blank=True, null=True)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
-    def __str__(self):
-        return self.title
-
-class Comment(models.Model):
-    post = models.ForeignKey('blog.Post', related_name='comments', on_delete=models.CASCADE)
-    author = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    approved_comment = models.BooleanField(default=False)
-
-    def approve(self):
-        self.approved_comment = True
-        self.save()
-
-    def __str__(self):
-        return self.text
-
-class Blog(models.Model):
-    text = models.TextField()
-
-class Tags(models.Model):
-    tag = models.CharField(max_length=10)
-
-class Items(models.Model):
-    univ_list = (
+univ_list = (
         
         ('가야대학교김해캠퍼스','가야대학교김해캠퍼스'),
         ('가천대학교글로벌캠퍼스','가천대학교글로벌캠퍼스'),
@@ -230,6 +192,7 @@ class Items(models.Model):
         ('서울기독대학교','서울기독대학교'),
         ('서울대학교관악캠퍼스','서울대학교관악캠퍼스'),
         ('서울대학교연건캠퍼스','서울대학교연건캠퍼스'),
+        ('서울시립대학교','서울시립대학교'),
         ('서울신학대학교','서울신학대학교'),
         ('서울여자간호대학교','서울여자간호대학교'),
         ('서울여자대학교','서울여자대학교'),
@@ -242,6 +205,7 @@ class Items(models.Model):
         ('서해대학','서해대학'),
         ('선문대학교','선문대학교'),
         ('성균관대학교인문사회캠퍼스','성균관대학교인문사회캠퍼스'),
+        ('성균관대학교자연과학캠퍼스','성균관대학교자연과학캠퍼스'),
         ('성신여자대학교수정캠퍼스','성신여자대학교수정캠퍼스'),
         ('성신여자대학교운정그린캠퍼스','성신여자대학교운정그린캠퍼스'),
         ('세경대학교','세경대학교'),
@@ -451,12 +415,69 @@ class Items(models.Model):
         ('화신사이버대학교','화신사이버대학교'),
 
     )
+
+class Post(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    age = models.IntegerField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+class Comment(models.Model):
+    post = models.ForeignKey('blog.Post', related_name='comments', on_delete=models.CASCADE)
+    author = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    approved_comment = models.BooleanField(default=False)
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text
+
+class Blog(models.Model):
+    text = models.TextField()
+
+class Tags(models.Model):
+    tag = models.CharField(max_length=10)
+
+class Items(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     auto_increment_id = models.AutoField(primary_key=True)
     cost = models.IntegerField()
     tag = models.CharField(max_length=10)
     lat = models.DecimalField(max_digits=13, decimal_places=10)
     lng = models.DecimalField(max_digits=13, decimal_places=10)
     loca = models.CharField(verbose_name='소속대학', max_length=15, choices=univ_list)
+    like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,blank=True,related_name='like_user_set',through='Like')
+
+    @property
+    def like_count(self):
+      return self.like_user_set.count()
+
+class Like(models.Model):
+    item = models.ForeignKey('Items', on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
+    content = models.CharField(max_length=40)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (
+            ('author', 'item')
+        )
 
 class CustomUser(AbstractUser):     
     GENDERS = (
